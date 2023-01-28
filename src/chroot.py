@@ -3,4 +3,17 @@ import os
 
 
 def chroot(directory):
-    subprocess.run(["chroot", directory])
+
+    subprocess.run(["chroot", directory, "/bin/bash"])
+
+
+def chroot_gui(directory, tty):
+    subprocess.run(
+        [
+            "/bin/sh",
+            os.path.dirname(os.path.realpath(__file__)) + "/shellscripts/rungui.sh",
+            directory,
+            tty,
+            "2",
+        ]
+    )

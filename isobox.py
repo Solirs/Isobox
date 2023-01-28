@@ -3,7 +3,7 @@ import os
 from src.mnt import *
 from src.get_rootfs import *
 from src.unsquash_filesystem import *
-from src.chroot import chroot
+from src.chroot import *
 import argparse
 from src.filesystems import *
 
@@ -20,6 +20,7 @@ def parse_args():
     createparser = subparsers.add_parser("create", help="Create new isobox")
     runparser = subparsers.add_parser("run", help="Run existing isobox")
     guiparser = subparsers.add_parser("gui", help="Run existing isobox and start gui")
+    guiparser.add_argument("-tty", type=str, default="3")
     return parser.parse_args()
 
 
@@ -34,9 +35,14 @@ def main():
         tempmount_iso(path)
         squashedpath = get_rootfs()
         unsquash("/mnt/debian", squashedpath)
-    elif args.command in ("run", "gui"):
+    elif args.command == "run":
         mount_filesystems()
         chroot("/mnt/debian")
+
+        umount_filesystems()
+    elif args.command == "gui":
+        mount_filesystems()
+        chroot_gui("/mnt/debian", args.tty)
         umount_filesystems()
 
 

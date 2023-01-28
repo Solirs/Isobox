@@ -18,5 +18,5 @@ def umount_filesystems():
             "/bin/sh",
             os.path.dirname(os.path.realpath(__file__)) + "/shellscripts/umount.sh",
             "/mnt/debian",
-        ]
+        ],
     )
