@@ -46,4 +46,10 @@ def main():
         umount_filesystems()
 
 
-main()
+if __name__ == "__main__":
+    try:
+        main()
+    except Exception as e:
+        umount_filesystems()
+    except KeyboardInterrupt:
+        umount_filesystems()
