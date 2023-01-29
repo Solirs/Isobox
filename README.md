@@ -10,9 +10,9 @@ You can even run a graphical shell/desktop environment inside it, though it may 
   Some systems will not work, but i've tested most major distributions (Arch, Debian, Fedora, Ubuntu flavours like xubuntu and linux mint) with good results.
 
 ### Requirements:
-  A python interpreter
-  The `unsquashfs` utility
-  A linux system
+  A python interpreter  
+  The `unsquashfs` utility  
+  A linux system  
   
   
   
