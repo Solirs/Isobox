@@ -32,9 +32,14 @@ def parse_args():
     createparser.add_argument("name")
     createparser.add_argument("isopath")
 
+    removeparser = subparsers.add_parser("remove", help="Remove existing isobox")
+    removeparser.add_argument("name")
+
     createparser.add_argument("-mountpoint", type=str, default=None)
 
-    runparser = subparsers.add_parser("run", help="Run existing isobox")
+    runparser = subparsers.add_parser(
+        "shell", help="Gain a shell into an existing isobox"
+    )
     runparser.add_argument("name")
 
     subparsers.add_parser("ls", help="List all isoboxes")
@@ -88,7 +93,7 @@ def main(args):
             f.write(json.dumps(boxeslist))
             f.truncate()
 
-    elif args.command == "run":
+    elif args.command == "shell":
         currentbox = getboxbyname(args.name)
 
         mount_filesystems(currentbox["mountpoint"])
@@ -110,20 +115,34 @@ def main(args):
         else:
             for i in boxeslist:
                 print(i["name"])
+    elif args.command == "remove":
+        currentbox = getboxbyname(args.name)
+        shutil.rmtree(currentbox["mountpoint"])
+
+        with open("/var/lib/isobox/isoboxes.json", "r+") as f:
+            boxeslist = json.load(f)
+            toremove = [i for i in boxeslist if i["name"] == args.name]
+            if len(toremove) == 0:
+                sys.exit("The isobox you're trying to remove doesn't exist.")
+            else:
+                boxeslist[:] = [i for i in boxeslist if i["name"] != args.name]
+            f.seek(0)
+            f.write(json.dumps(boxeslist))
+            f.truncate()
 
 
 if __name__ == "__main__":
     args = parse_args()
     currentmountpoint = None
-    if args.command in ("run", "gui") and getboxbyname(args.name):
+    if args.command in ("shell", "gui") and getboxbyname(args.name):
         currentmountpoint = getboxbyname(args.name)["mountpoint"]
 
     try:
         main(args)
     except Exception as e:
         print(traceback.format_exc())
-        if args.command in ("run", "gui"):
+        if args.command in ("shell", "gui"):
             umount_filesystems(currentmountpoint)
     except KeyboardInterrupt:
-        if args.command in ("run", "gui"):
+        if args.command in ("shell", "gui"):
             umount_filesystems(currentmountpoint)
