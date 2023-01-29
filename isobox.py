@@ -36,6 +36,8 @@ def parse_args():
     runparser = subparsers.add_parser("run", help="Run existing isobox")
     runparser.add_argument("name")
 
+    subparsers.add_parser("ls", help="List all isoboxes")
+
     guiparser = subparsers.add_parser("gui", help="Run existing isobox and start gui")
     guiparser.add_argument("-tty", type=str, default="3")
     return parser.parse_args()
@@ -77,6 +79,15 @@ def main(args):
         mount_filesystems()
         chroot_gui("/mnt/debian", args.tty)
         umount_filesystems()
+    elif args.command in ("ls", "list"):
+        boxeslist = None
+        with open("/var/lib/isobox/isoboxes.json", "r+") as f:
+            boxeslist = json.load(f)
+        if len(boxeslist) == 0:
+            sys.exit("No isoboxes on this system.")
+        else:
+            for i in boxeslist:
+                print(i["name"])
 
 
 if __name__ == "__main__":
