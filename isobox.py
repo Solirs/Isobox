@@ -114,13 +114,15 @@ def main(args):
 if __name__ == "__main__":
     args = parse_args()
     currentmountpoint = None
-    if getboxbyname(args.name):
+    if getboxbyname(args.name) and args.command in ("run", "gui"):
         currentmountpoint = getboxbyname(args.name)["mountpoint"]
 
     try:
         main(args)
     except Exception as e:
         print(traceback.format_exc())
-        umount_filesystems(currentmountpoint)
+        if args.command in ("run", "gui"):
+            umount_filesystems(currentmountpoint)
     except KeyboardInterrupt:
-        umount_filesystems(currentmountpoint)
+        if args.command in ("run", "gui"):
+            umount_filesystems(currentmountpoint)
