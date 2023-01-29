@@ -10,6 +10,7 @@ from src.chroot import *
 from src.filesystems import *
 from src.isobox_model import Isobox
 from src.getboxbyname import getboxbyname
+from src.isroot import isroot
 
 
 def create_required_files():  # Create files used by isobox like config files if they dont exist
@@ -50,23 +51,39 @@ def main(args):
     create_required_files()
 
     if args.command == "create":
+        mountpoint = None
+
+        if not args.mountpoint:
+            mountpoint = f"/var/lib/isobox/mounts/{args.name}"
+        else:
+            mountpoint = args.mountpoint
+
+        tempmount_iso(args.isopath)
+        squashedpath = get_rootfs()
+        unsquash(mountpoint, squashedpath)
+        if not isroot(mountpoint):
+            print(
+                "No useable root in squashfs, looking for potential rootfs image file."
+            )
+            rootimg = find_rootimg(mountpoint)
+            print(
+                f"Potential rootfs image file found at {rootimg}, mounting it to /mnt!"
+            )
+            subprocess.run(f"mount -t auto {rootimg} /mnt".split())
+            shutil.rmtree(mountpoint)
+
+            print(f"Copying rootfs to {mountpoint}")
+            for i in os.listdir("/mnt"):
+                shutil.move(os.path.join("/mnt", i), mountpoint)
+
         with open("/var/lib/isobox/isoboxes.json", "r+") as f:
             boxeslist = json.load(f)
-            mountpoint = None
-            if not args.mountpoint:
-                mountpoint = f"/var/lib/isobox/mounts/{args.name}"
-            else:
-                mountpoint = args.mountpoint
 
             newisobox = Isobox(name=args.name, note="", mountpoint=mountpoint)
             boxeslist.append(newisobox.__dict__)
             f.seek(0)
             f.write(json.dumps(boxeslist))
             f.truncate()
-
-        tempmount_iso(args.isopath)
-        squashedpath = get_rootfs()
-        unsquash(mountpoint, squashedpath)
 
     elif args.command == "run":
         currentbox = getboxbyname(args.name)
