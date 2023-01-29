@@ -6,4 +6,3 @@ mount -o bind /run $1/run
 mount -o bind /tmp $1/tmp
 mount -t sysfs /sys $1/sys
 cp -r /etc/resolv.conf $1/etc/resolv.conf
-cp /run/user/1000/gdm/Xauthority $1/root/.Xauthority
