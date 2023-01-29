@@ -3,11 +3,12 @@ import os
 
 
 def chroot(directory):
-
+    print("Chrooting...")
     subprocess.run(["chroot", directory, "/bin/bash"])
 
 
 def chroot_gui(directory, tty):
+    print("Chrooting and starting gui...")
     subprocess.run(
         [
             "/bin/sh",
