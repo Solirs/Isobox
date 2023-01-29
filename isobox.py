@@ -40,7 +40,9 @@ def parse_args():
     subparsers.add_parser("ls", help="List all isoboxes")
 
     guiparser = subparsers.add_parser("gui", help="Run existing isobox and start gui")
+    guiparser.add_argument("name")
     guiparser.add_argument("-tty", type=str, default="3")
+
     return parser.parse_args()
 
 
@@ -93,9 +95,11 @@ def main(args):
 
         umount_filesystems(currentbox["mountpoint"])
     elif args.command == "gui":
-        mount_filesystems()
-        chroot_gui("/mnt/debian", args.tty)
-        umount_filesystems()
+        currentbox = getboxbyname(args.name)
+
+        mount_filesystems(currentbox["mountpoint"])
+        chroot_gui(currentbox["mountpoint"], args.tty)
+        umount_filesystems(currentbox["mountpoint"])
     elif args.command in ("ls", "list"):
         boxeslist = None
         with open("/var/lib/isobox/isoboxes.json", "r+") as f:
@@ -109,6 +113,7 @@ def main(args):
 
 if __name__ == "__main__":
     args = parse_args()
+
     try:
         main(args)
     except Exception as e:
