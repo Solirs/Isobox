@@ -13,4 +13,4 @@ def unsquash(mountpoint, squashedpath):
     for direc in os.listdir(mountpoint + "/" + "squashfs-root"):
         shutil.move(mountpoint + "/" + "squashfs-root/" + direc, mountpoint)
     shutil.rmtree(mountpoint + "/" + "squashfs-root")
-    os.remove(mountpoint + "/" + "filesystem.squashfs")
+    os.remove(mountpoint + "/" + os.path.basename(squashedpath))
