@@ -53,6 +53,7 @@ def main(args):
     create_required_files()
 
     if args.command == "create":
+        isopath = os.path.abspath(args.isopath)
         mountpoint = None
 
         if not args.mountpoint:
@@ -60,7 +61,7 @@ def main(args):
         else:
             mountpoint = args.mountpoint
 
-        tempmount_iso(args.isopath)
+        tempmount_iso(isopath)
         squashedpath = get_rootfs()
         unsquash(mountpoint, squashedpath)
         if not isroot(mountpoint):
@@ -114,7 +115,7 @@ def main(args):
 if __name__ == "__main__":
     args = parse_args()
     currentmountpoint = None
-    if getboxbyname(args.name) and args.command in ("run", "gui"):
+    if args.command in ("run", "gui") and getboxbyname(args.name):
         currentmountpoint = getboxbyname(args.name)["mountpoint"]
 
     try:
