@@ -147,7 +147,7 @@ def main(args):
     elif args.command == "move":
         currentbox = getboxbyname(args.name)
         currentmountpoint = currentbox["mountpoint"]
-        target = args.target
+        target = os.path.abspath(args.target)
 
         subprocess.run(f"mv {currentmountpoint}/* {target}", shell=True)
         with open("/var/lib/isobox/isoboxes.json", "r+") as f:
