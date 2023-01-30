@@ -55,7 +55,7 @@ def parse_args():
 
     guiparser = subparsers.add_parser("gui", help="Run existing isobox and start gui")
     guiparser.add_argument("name")
-    guiparser.add_argument("-tty", type=str, default="3")
+    guiparser.add_argument("-tty", type=str, default="3", help="The tty to startx into")
 
     return parser.parse_args()
 
