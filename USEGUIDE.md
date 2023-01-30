@@ -6,8 +6,8 @@ In order to create an isobox you first need a distro's iso, for this example we 
 the iso you can find at https://sourceforge.net/projects/mx-linux/files/Final/Xfce/MX-21.3_x64.iso/download
 
 Once you have your iso, you'll have to create an isobox for it.
-The command is the following:
-`isobox create name path-to-iso`
+The command is the following:  
+`isobox create name path-to-iso`  
 name and path-to-iso being positional arguments.
 
 This will find the squashfs in the iso, and unsquash it into /var/lib/isobox/mounts/name or the mountpoint  
@@ -16,12 +16,12 @@ specified with the -mountpoint argument.
 Congratulations! You made your first isobox.
 Next up you can do several things.
 
-Firstly gain a root shell into that isobox with the command:
-`isobox shell name`
+Firstly gain a root shell into that isobox with the command:  
+`isobox shell name`  
 
 Secondly, you can try to make Isobox attempt to startx inside the isobox  
 potentially launching the live iso's gui, it doesnt work all the time, but it can do the trick.:  
-`isobox gui name`
+`isobox gui name`  
 You may want to set the -tty argument to launch the gui in another tty.  
 Or the -display argument to set the display to startx on (:0, :1, :2, etc). 
 
