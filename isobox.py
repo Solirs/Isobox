@@ -35,6 +35,12 @@ def parse_args():
     removeparser = subparsers.add_parser("remove", help="Remove existing isobox")
     removeparser.add_argument("name")
 
+    mvparser = subparsers.add_parser(
+        "move", help="Move an isobox to another directory on your system."
+    )
+    mvparser.add_argument("name")
+    mvparser.add_argument("target")
+
     createparser.add_argument("-mountpoint", type=str, default=None)
 
     runparser = subparsers.add_parser(
@@ -127,6 +133,19 @@ def main(args):
                 sys.exit("The isobox you're trying to remove doesn't exist.")
             else:
                 boxeslist[:] = [i for i in boxeslist if i["name"] != args.name]
+            f.seek(0)
+            f.write(json.dumps(boxeslist))
+            f.truncate()
+    elif args.command == "move":
+        currentbox = getboxbyname(args.name)
+        currentmountpoint = currentbox["mountpoint"]
+        target = args.target
+
+        subprocess.run(f"mv {currentmountpoint}/* {target}", shell=True)
+        with open("/var/lib/isobox/isoboxes.json", "r+") as f:
+            boxeslist = json.load(f)
+            tomove = [i for i in boxeslist if i["name"] == args.name][0]
+            tomove["mountpoint"] = target
             f.seek(0)
             f.write(json.dumps(boxeslist))
             f.truncate()
