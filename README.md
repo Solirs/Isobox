@@ -13,7 +13,7 @@ You can even run a graphical shell/desktop environment inside it, though it may 
   - To be able to get into a disposable system in 2 commands and a few seconds
   - To test out distros without booting them
   - To be able to do dangerous or distro specific stuff in a semi-isolated environment.
-  - Because having a second separate environment is always good for activities needing a lot of programs like pentesting
+  - Because having a second separate ready to use environment is always good for activities needing a lot of programs like pentesting
   - For fun and practice
 
 ### Requirements:
