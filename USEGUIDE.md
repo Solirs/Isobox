@@ -25,5 +25,5 @@ potentially launching the live iso's gui, it doesnt work all the time, but it ca
 You may want to set the -tty argument to launch the gui in another tty.  
 Or the -display argument to set the display to startx on (:0, :1, :2, etc). 
 
-You now know the basics of Isobox! There are more commands like `isobox ls` that you can discover and that arent covered here, but you can now use Isobox.  
+You now know the basics of Isobox! There are more commands like `isobox ls` that you can discover and that arent covered here, but you can now use Isobox like a pro!  
 

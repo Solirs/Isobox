@@ -2,6 +2,9 @@
 Isobox is a command line program that allows to run a full linux system from an iso file in a chroot jail alongside one's system.
 You can even run a graphical shell/desktop environment inside it, though it may or may not require some intervention depending on the guest system and desktop environment.
 
+You can read a [quick guide on how to use Isobox](https://github.com/Solirs/Isobox/blob/main/USEGUIDE.md) i wrote to know how to use it.
+
+
 ### Disclaimer:
   Isobox exposes a lot of stuff to its chroot jails, including devices.
   It is therefore NOT recommended to use if any sort of security is in play.
