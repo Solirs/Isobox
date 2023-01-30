@@ -7,7 +7,7 @@ You can even run a graphical shell/desktop environment inside it, though it may 
   It is therefore NOT recommended to use if any sort of security is in play.
   
   It is also pretty much in Alpha at the moment, dont expect too much polishing or features.
-  Some systems will not work, but i've tested most major distributions (Arch, Debian, Fedora, Ubuntu flavours like xubuntu and linux mint) and some lesser   known distros (Void, Endeavour OS) with good results.
+  Some systems will not work, but i've tested most major distributions (Arch, Debian, Fedora, Ubuntu flavours like xubuntu and linux mint) and some lesser   known distros (Void, Endeavour OS, Almalinux, Kali linux, MX Linux) with good results.
 
 ### But why?:
   - To be able to get into a disposable system in 2 commands and a few seconds
