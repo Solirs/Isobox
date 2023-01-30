@@ -56,7 +56,12 @@ def parse_args():
     guiparser = subparsers.add_parser("gui", help="Run existing isobox and start gui")
     guiparser.add_argument("name")
     guiparser.add_argument("-tty", type=str, default="3", help="The tty to startx into")
-
+    guiparser.add_argument(
+        "-display",
+        type=str,
+        default="2",
+        help="The display to start the Xorg server on",
+    )
     return parser.parse_args()
 
 
@@ -114,7 +119,7 @@ def main(args):
         currentbox = getboxbyname(args.name)
 
         mount_filesystems(currentbox["mountpoint"])
-        chroot_gui(currentbox["mountpoint"], args.tty)
+        chroot_gui(currentbox["mountpoint"], args.tty, args.display)
         umount_filesystems(currentbox["mountpoint"])
     elif args.command in ("ls", "list"):
         boxeslist = None

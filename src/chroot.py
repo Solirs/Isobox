@@ -7,7 +7,7 @@ def chroot(directory):
     subprocess.run(["chroot", directory, "/bin/bash"])
 
 
-def chroot_gui(directory, tty):
+def chroot_gui(directory, tty, display):
     print("Chrooting and starting gui...")
     subprocess.run(
         [
@@ -15,6 +15,6 @@ def chroot_gui(directory, tty):
             os.path.dirname(os.path.realpath(__file__)) + "/shellscripts/rungui.sh",
             directory,
             tty,
-            "2",
+            display,
         ]
     )
