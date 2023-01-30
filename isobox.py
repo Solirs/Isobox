@@ -67,8 +67,6 @@ def parse_args():
 
 def main(args):
 
-    if os.getuid() != 0:
-        sys.exit("Requires root")
     create_required_files()
 
     if args.command == "create":
@@ -166,6 +164,9 @@ def main(args):
 
 
 if __name__ == "__main__":
+
+    if os.getuid() != 0:
+        sys.exit("Requires root")
     args = parse_args()
     currentmountpoint = None
     if args.command in ("shell", "gui") and getboxbyname(args.name):
