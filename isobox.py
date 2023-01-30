@@ -81,8 +81,9 @@ def main(args):
             shutil.rmtree(mountpoint)
 
             print(f"Copying rootfs to {mountpoint}")
-            for i in os.listdir("/mnt"):
-                shutil.move(os.path.join("/mnt", i), mountpoint)
+
+            subprocess.run(f"cp -R /mnt {mountpoint}".split())
+            subprocess.run(f"umount /mnt".split())
 
         with open("/var/lib/isobox/isoboxes.json", "r+") as f:
             boxeslist = json.load(f)
