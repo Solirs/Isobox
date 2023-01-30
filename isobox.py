@@ -35,6 +35,9 @@ def parse_args():
     removeparser = subparsers.add_parser("remove", help="Remove existing isobox")
     removeparser.add_argument("name")
 
+    infoparser = subparsers.add_parser("info", help="Print info about an isobox")
+    infoparser.add_argument("name")
+
     mvparser = subparsers.add_parser(
         "move", help="Move an isobox to another directory on your system."
     )
@@ -149,6 +152,12 @@ def main(args):
             f.seek(0)
             f.write(json.dumps(boxeslist))
             f.truncate()
+    elif args.command == "info":
+        currentbox = getboxbyname(args.name)
+        print(f"Info about box {currentbox['name']}:\n")
+        print(f"Name: {currentbox['name']}")
+        print(f"Mountpoint: {currentbox['mountpoint']}")
+        print(f"Note: {currentbox['note']}")
 
 
 if __name__ == "__main__":
