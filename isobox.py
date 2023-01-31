@@ -80,8 +80,12 @@ def main(args):
             mountpoint = args.mountpoint
 
         tempmount_iso(isopath)
-        squashedpath = get_rootfs()
-        unsquash(mountpoint, squashedpath)
+        try:
+            squashedpath = get_rootfs()
+            unsquash(mountpoint, squashedpath)
+        finally:
+            subprocess.run(["umount", "/tmp/isobox_mount"])
+
         if not isroot(
             mountpoint
         ):  # Sometimes distributions leave an img file of the root filesystem in the squashfs, we need to handle that
