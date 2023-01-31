@@ -5,15 +5,15 @@ import os
 import argparse
 import traceback
 import json
-from src.mnt import *
-from src.rootfs import *
-from src.unsquash_filesystem import *
-from src.chroot import *
-from src.filesystems import *
-from src.isobox_model import Isobox
-from src.isoboxmanagement import getboxbyname
-from src.checkdependencies import checkdependencies
-from src.purge import purge
+from libisobox.mnt import *
+from libisobox.rootfs import *
+from libisobox.unsquash_filesystem import *
+from libisobox.chroot import *
+from libisobox.filesystems import *
+from libisobox.isobox_model import Isobox
+from libisobox.isoboxmanagement import getboxbyname
+from libisobox.checkdependencies import checkdependencies
+from libisobox.purge import purge
 
 
 def create_required_files():  # Create files used by isobox like config files if they dont exist

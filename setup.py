@@ -12,8 +12,8 @@ setuptools.setup(
     long_description=long_desc,
     long_description_content_type="text/markdown",
     url="https://github.com/Solirs/Isobox",
-    packages=["src"],
-    package_dir={"src": "src/"},
-    package_data={"src": ["shellscripts/*"]},
+    packages=["libisobox"],
+    package_dir={"libisobox": "libisobox/"},
+    package_data={"libisobox": ["shellscripts/*"]},
     scripts=["isobox"],
 )
