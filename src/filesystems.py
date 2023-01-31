@@ -4,6 +4,7 @@ import os
 
 def mount_filesystems(mountpoint):
     print("Mounting useful filesystems...")
+
     subprocess.run(
         [
             "/bin/sh",

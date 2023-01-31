@@ -1,4 +1,6 @@
 import json
+import sys
+from .errors import error
 
 
 def getboxbyname(name):
@@ -8,4 +10,4 @@ def getboxbyname(name):
         if results:
             return results[0]
         else:
-            return False
+            error("The Isobox you're refering to does not exist.")

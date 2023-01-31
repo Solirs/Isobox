@@ -9,8 +9,9 @@ from src.unsquash_filesystem import *
 from src.chroot import *
 from src.filesystems import *
 from src.isobox_model import Isobox
-from src.getboxbyname import getboxbyname
+from src.isoboxmanagement import getboxbyname
 from src.isroot import isroot
+from src.checkdependencies import checkdependencies
 
 
 def create_required_files():  # Create files used by isobox like config files if they dont exist
@@ -81,7 +82,9 @@ def main(args):
         tempmount_iso(isopath)
         squashedpath = get_rootfs()
         unsquash(mountpoint, squashedpath)
-        if not isroot(mountpoint):
+        if not isroot(
+            mountpoint
+        ):  # Sometimes distributions leave an img file of the root filesystem in the squashfs, we need to handle that
             print(
                 "No useable root in squashfs, looking for potential rootfs image file."
             )
@@ -130,6 +133,7 @@ def main(args):
                 print(i["name"])
     elif args.command == "remove":
         currentbox = getboxbyname(args.name)
+        print(f"Deleting isobox {args.name}")
         shutil.rmtree(currentbox["mountpoint"])
 
         with open("/var/lib/isobox/isoboxes.json", "r+") as f:
@@ -148,6 +152,7 @@ def main(args):
         target = os.path.abspath(args.target)
 
         subprocess.run(f"mv {currentmountpoint}/* {target}", shell=True)
+
         with open("/var/lib/isobox/isoboxes.json", "r+") as f:
             boxeslist = json.load(f)
             tomove = [i for i in boxeslist if i["name"] == args.name][0]
@@ -165,10 +170,15 @@ def main(args):
 
 if __name__ == "__main__":
 
-    if os.getuid() != 0:
+    if (
+        os.getuid() != 0
+    ):  # Quit if user is not root as root is pretty much required for this to run properly
         sys.exit("Requires root")
+    checkdependencies()  # Check if unsquashfs is installed basically
+
     args = parse_args()
     currentmountpoint = None
+    # Set the currentmountpoint here so we can unmount mounted filesystems  here if something goes south
     if args.command in ("shell", "gui") and getboxbyname(args.name):
         currentmountpoint = getboxbyname(args.name)["mountpoint"]
 
