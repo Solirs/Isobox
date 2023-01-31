@@ -119,6 +119,19 @@ def main(args):
             f.seek(0)
             f.write(json.dumps(boxeslist))
             f.truncate()
+        userhomes = os.listdir(mountpoint + "/home")
+        if len(userhomes) == 1 and os.path.exists(
+            mountpoint + "/home/" + "/" + userhomes[0]
+        ):
+            configpath = mountpoint + "/home/" + "/" + userhomes[0] + "/.config"
+            rootpath = mountpoint + "/root/"
+            answer = input(
+                f"A user's home directory was found on the live system at /home/{userhomes[0]} would you like to copy this user's .config to the /root directory? It may be necessary in order to have the distro's custom desktop environment config when entering the gui [Y/N]: "
+            ).lower()
+            if answer in ("y", "yes"):
+                shutil.rmtree(rootpath + "/.config")
+                subprocess.run(f"cp -R {configpath} {rootpath}".split())
+                print("Done!")
 
     elif args.command == "shell":
         currentbox = getboxbyname(args.name)
