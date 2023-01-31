@@ -139,10 +139,8 @@ def main(args):
         with open("/var/lib/isobox/isoboxes.json", "r+") as f:
             boxeslist = json.load(f)
             toremove = [i for i in boxeslist if i["name"] == args.name]
-            if len(toremove) == 0:
-                sys.exit("The isobox you're trying to remove doesn't exist.")
-            else:
-                boxeslist[:] = [i for i in boxeslist if i["name"] != args.name]
+
+            boxeslist[:] = [i for i in boxeslist if i["name"] != args.name]
             f.seek(0)
             f.write(json.dumps(boxeslist))
             f.truncate()
