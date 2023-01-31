@@ -4,13 +4,12 @@ import argparse
 import traceback
 import json
 from src.mnt import *
-from src.get_rootfs import *
+from src.rootfs import *
 from src.unsquash_filesystem import *
 from src.chroot import *
 from src.filesystems import *
 from src.isobox_model import Isobox
 from src.isoboxmanagement import getboxbyname
-from src.isroot import isroot
 from src.checkdependencies import checkdependencies
 
 

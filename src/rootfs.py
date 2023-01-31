@@ -18,3 +18,14 @@ def find_rootimg(directory):
         sfs = [i for i in files if i.endswith(".img") or i.startswith("root")]
         if sfs:
             return root + "/" + sfs[0]
+
+
+def isroot(path):
+    if (
+        os.path.exists(path + "/boot")
+        and os.path.exists(path + "/dev")
+        and os.path.exists(path + "/usr")
+    ):
+        return True
+
+    return False
