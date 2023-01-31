@@ -13,6 +13,7 @@ from src.filesystems import *
 from src.isobox_model import Isobox
 from src.isoboxmanagement import getboxbyname
 from src.checkdependencies import checkdependencies
+from src.purge import purge
 
 
 def create_required_files():  # Create files used by isobox like config files if they dont exist
@@ -36,6 +37,11 @@ def parse_args():
 
     removeparser = subparsers.add_parser("remove", help="Remove existing isobox")
     removeparser.add_argument("name")
+
+    rmallparser = subparsers.add_parser(
+        "purge",
+        help="Remove all existing isoboxes and data related to isobox, usually to run before uninstalling",
+    )
 
     infoparser = subparsers.add_parser("info", help="Print info about an isobox")
     infoparser.add_argument("name")
@@ -169,6 +175,14 @@ def main(args):
         print(f"Name: {currentbox['name']}")
         print(f"Mountpoint: {currentbox['mountpoint']}")
         print(f"Note: {currentbox['note']}")
+    elif args.command == "purge":
+        answer = input(
+            "Are you sure you want to delete all data related to isobox? [Y/n]: "
+        ).lower()
+        if answer in ("y", "yes"):
+            purge()
+        else:
+            sys.exit("Aborting")
 
 
 if __name__ == "__main__":
