@@ -186,6 +186,7 @@ def main(args):
 
 
 if __name__ == "__main__":
+    args = parse_args()
 
     if (
         os.getuid() != 0
@@ -193,7 +194,6 @@ if __name__ == "__main__":
         sys.exit("Requires root")
     checkdependencies()  # Check if unsquashfs is installed basically
 
-    args = parse_args()
     currentmountpoint = None
     # Set the currentmountpoint here so we can unmount mounted filesystems  here if something goes south
     if args.command in ("shell", "gui") and getboxbyname(args.name):
