@@ -119,17 +119,43 @@ def main(args):
             f.seek(0)
             f.write(json.dumps(boxeslist))
             f.truncate()
+
+        rootpath = mountpoint + "/root/"
+
         userhomes = os.listdir(mountpoint + "/home")
+        userhomes = [
+            i
+            for i in userhomes
+            if not i.startswith(".")
+            and ".config" in os.listdir(mountpoint + "/home/" + i)
+        ]
+
         if len(userhomes) == 1 and os.path.exists(
             mountpoint + "/home/" + "/" + userhomes[0]
         ):
+            print("Found user in iso's root...")
             configpath = mountpoint + "/home/" + "/" + userhomes[0] + "/.config"
-            rootpath = mountpoint + "/root/"
             answer = input(
                 f"A user's home directory was found on the live system at /home/{userhomes[0]} would you like to copy this user's .config to the /root directory? It may be necessary in order to have the distro's custom desktop environment config when entering the gui [Y/N]: "
             ).lower()
             if answer in ("y", "yes"):
-                shutil.rmtree(rootpath + "/.config")
+                if os.path.exists(rootpath + "/.config"):
+                    shutil.rmtree(rootpath + "/.config")
+                subprocess.run(f"cp -R {configpath} {rootpath}".split())
+                print("Done!")
+        elif len(userhomes) > 1:
+            x = 1
+            for i in userhomes:
+                print(f"{x}: {'/home/' + i}")
+                x += 1
+            answer = input(
+                "Several user homes were found in the iso, do you want to copy the .config of one of them to the root directory? It may be useful to have some of the distro's config like the desktop environment customizations. (number/n):"
+            ).lower()
+            if answer.isdigit():
+                userhome = userhomes[int(answer) - 1]
+                configpath = mountpoint + "/home/" + userhome + "/.config"
+                if os.path.exists(rootpath + "/.config"):
+                    shutil.rmtree(rootpath + "/.config")
                 subprocess.run(f"cp -R {configpath} {rootpath}".split())
                 print("Done!")
 
