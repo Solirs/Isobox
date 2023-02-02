@@ -34,6 +34,7 @@ Outside an isobox:.
 `isobox shell` Enter an isobox.  
 `isobox ls` List all isoboxes.  
 `isobox remove` Remove an isobox.  
+`isobox info` Get info about an isobox.  
 `isobox gui` Enter an isobox and attempt to run `startx` along with utilities like a sound server.  
 `isobox purge` Delete all data related to isobox, generally to run before uninstalling manually or with pip.  
 
