@@ -26,5 +26,17 @@ You may want to set the -tty argument to launch the gui in another tty.
 Or the -display argument to set the display to startx on (:0, :1, :2, etc). 
 
 You now know the basics of Isobox! There are more commands like `isobox ls` that you can discover and that arent covered here, but you can now use Isobox like a pro!  
-For more info run `isobox -h` or `isobox command -h`, command can be ls, gui, shell, move, etc.
+For more info run `isobox -h` or `isobox command -h`, command can be ls, gui, shell, move, etc.  
+Here is a list of all commands with a rough description of what they do.
+
+Outside an isobox:
+`isobox create` Create an isobox from an iso file. 
+`isobox shell` Enter an isobox. 
+`isobox ls` List all isoboxes. 
+`isobox remove` Remove an isobox. 
+`isobox gui` Enter an isobox and attempt to run `startx` along with utilities like a sound server. 
+`isobox purge` Delete all data related to isobox, generally to run before uninstalling manually or with pip.  
+
+Inside an isobox:
+`/usr/local/bin/isobox_desktop_init.sh` Run utilities like pulseaudio/pipewire that are useful when using a desktop, automatically ran by `isobox gui`
 
