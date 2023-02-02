@@ -29,14 +29,14 @@ You now know the basics of Isobox! There are more commands like `isobox ls` that
 For more info run `isobox -h` or `isobox command -h`, command can be ls, gui, shell, move, etc.  
 Here is a list of all commands with a rough description of what they do.
 
-Outside an isobox:. 
-`isobox create` Create an isobox from an iso file. 
-`isobox shell` Enter an isobox. 
-`isobox ls` List all isoboxes. 
-`isobox remove` Remove an isobox. 
-`isobox gui` Enter an isobox and attempt to run `startx` along with utilities like a sound server. 
+Outside an isobox:.  
+`isobox create` Create an isobox from an iso file.  
+`isobox shell` Enter an isobox.  
+`isobox ls` List all isoboxes.  
+`isobox remove` Remove an isobox.  
+`isobox gui` Enter an isobox and attempt to run `startx` along with utilities like a sound server.  
 `isobox purge` Delete all data related to isobox, generally to run before uninstalling manually or with pip.  
 
-Inside an isobox:
-`/usr/local/bin/isobox_desktop_init.sh` Run utilities like pulseaudio/pipewire that are useful when using a desktop, automatically ran by `isobox gui`
+Inside an isobox:.  
+`/usr/local/bin/isobox_desktop_init.sh` Run utilities like pulseaudio/pipewire that are useful when using a desktop, automatically ran by `isobox gui`.  
 
