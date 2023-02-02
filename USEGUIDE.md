@@ -29,7 +29,7 @@ You now know the basics of Isobox! There are more commands like `isobox ls` that
 For more info run `isobox -h` or `isobox command -h`, command can be ls, gui, shell, move, etc.  
 Here is a list of all commands with a rough description of what they do.
 
-Outside an isobox:
+Outside an isobox:. 
 `isobox create` Create an isobox from an iso file. 
 `isobox shell` Enter an isobox. 
 `isobox ls` List all isoboxes. 
