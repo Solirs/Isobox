@@ -4,7 +4,13 @@ import os
 
 def chroot(directory):
     print("Chrooting...")
-    subprocess.run(["chroot", directory, "/bin/bash"])
+    subprocess.run(
+        [
+            "/bin/sh",
+            os.path.dirname(os.path.realpath(__file__)) + "/shellscripts/chroot.sh",
+            directory,
+        ]
+    )
 
 
 def chroot_gui(directory, tty, display):
