@@ -54,10 +54,28 @@ def parse_args():
 
     createparser.add_argument("-mountpoint", type=str, default=None)
 
-    runparser = subparsers.add_parser(
+    shellparser = subparsers.add_parser(
         "shell", help="Gain a shell into an existing isobox"
     )
+    shellparser.add_argument("name")
+    shellparser.add_argument(
+        "-u",
+        "--user",
+        type=str,
+        default="root",
+        help="The user inside the isobox to start as",
+    )
+
+    runparser = subparsers.add_parser("run", help="Run program in an isobox")
     runparser.add_argument("name")
+    runparser.add_argument("program")
+    runparser.add_argument(
+        "-u",
+        "--user",
+        type=str,
+        default="root",
+        help="The user inside the isobox to start as",
+    )
 
     subparsers.add_parser("ls", help="List all isoboxes")
 
@@ -70,6 +88,14 @@ def parse_args():
         default="2",
         help="The display to start the Xorg server on",
     )
+    guiparser.add_argument(
+        "-u",
+        "--user",
+        type=str,
+        default="root",
+        help="The user inside the isobox to start as",
+    )
+
     return parser.parse_args()
 
 
@@ -163,14 +189,14 @@ def main(args):
         currentbox = getboxbyname(args.name)
 
         mount_filesystems(currentbox["mountpoint"])
-        chroot(currentbox["mountpoint"])
+        chroot(currentbox["mountpoint"], args.user)
 
         umount_filesystems(currentbox["mountpoint"])
     elif args.command == "gui":
         currentbox = getboxbyname(args.name)
 
         mount_filesystems(currentbox["mountpoint"])
-        chroot_gui(currentbox["mountpoint"], args.tty, args.display)
+        chroot_gui(currentbox["mountpoint"], args.tty, args.display, args.user)
         umount_filesystems(currentbox["mountpoint"])
     elif args.command in ("ls", "list"):
         boxeslist = None
@@ -222,6 +248,13 @@ def main(args):
             purge()
         else:
             sys.exit("Aborting")
+    elif args.command == "run":
+        currentbox = getboxbyname(args.name)
+
+        mount_filesystems(currentbox["mountpoint"])
+        chroot_run(currentbox["mountpoint"], args.user, args.program)
+
+        umount_filesystems(currentbox["mountpoint"])
 
 
 if __name__ == "__main__":
