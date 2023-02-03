@@ -4,6 +4,7 @@ You can even run a graphical shell/desktop environment inside it, though it may 
 
 You can read a [quick guide on how to use Isobox](https://github.com/Solirs/Isobox/blob/main/USEGUIDE.md) i wrote to know how to use it.
 
+### Install:
 #### Option 1: pip
 Only option until i start making distro packages.
 Firstly clone the repo and cd into the repo's root.
