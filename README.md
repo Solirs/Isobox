@@ -4,6 +4,16 @@ You can even run a graphical shell/desktop environment inside it, though it may 
 
 You can read a [quick guide on how to use Isobox](https://github.com/Solirs/Isobox/blob/main/USEGUIDE.md) i wrote to know how to use it.
 
+#### Option 1: pip
+Only option until i start making distro packages.
+Firstly clone the repo and cd into the repo's root.
+Then run.  
+`pip install .`.  
+As root.  
+If you uninstall after having installed this way you may want to run.  
+`isobox purge`  
+To delete all isobox related data.
+
 
 ### Disclaimer:
   Isobox exposes a lot of stuff to its chroot jails, including devices.
