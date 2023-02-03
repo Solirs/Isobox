@@ -1,1 +1,1 @@
-chroot $1 /usr/bin/bash -c 'trap "bash /usr/local/bin/isobox_kill_all_children.sh $PPID" EXIT && cd '"$3"' && /root/startdesktop.sh && su '"$2"'' 
+chroot $1 /usr/bin/bash -c 'trap "bash /usr/local/bin/isobox_kill_all_children.sh $PPID" EXIT && cd '"$3"' && su - '"$2"'' 
