@@ -35,6 +35,13 @@ def parse_args():
     createparser = subparsers.add_parser("create", help="Create new isobox")
     createparser.add_argument("name")
     createparser.add_argument("isopath")
+    createparser.add_argument(
+        "-sfs",
+        "--sfspath",
+        type=str,
+        default=None,
+        help="Path of the iso's squashfs relative to the iso's root",
+    )
 
     removeparser = subparsers.add_parser("remove", help="Remove existing isobox")
     removeparser.add_argument("name")
@@ -115,7 +122,11 @@ def main(args):
 
         tempmount_iso(isopath)
         try:
-            squashedpath = get_rootfs()
+            squashedpath = None
+            if args.sfspath:
+                squashedpath = "/tmp/isobox_mount/" + args.sfspath
+            else:
+                squashedpath = get_rootfs()
             unsquash(mountpoint, squashedpath)
         finally:
             subprocess.run(["umount", "/tmp/isobox_mount"])
