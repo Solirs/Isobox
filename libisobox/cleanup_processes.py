@@ -12,6 +12,7 @@ def cleanup_processes(mountpoint):
 
     for pid in pids:
         try:
+            # Get the path of the /proc/pid/cwd symlink and resolve it.
             cwd = "/proc/" + pid + "/cwd/"
             procpwd = os.path.realpath(cwd)
             if procpwd.startswith(mountpoint):
