@@ -2,8 +2,12 @@ import os
 import signal
 
 
+# This gently kills all processes whose cwd is inside the running isobox's "mountpoint"
+# Basically killing every process in the chroot jail
 def cleanup_processes(mountpoint):
     print("Killing all processes in chroot...")
+
+    # List of all processes
     pids = [pid for pid in os.listdir("/proc") if pid.isdigit()]
 
     for pid in pids:
