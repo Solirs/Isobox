@@ -14,6 +14,7 @@ from libisobox.isobox_model import Isobox
 from libisobox.isoboxmanagement import getboxbyname
 from libisobox.checkdependencies import checkdependencies
 from libisobox.purge import purge
+from libisobox.cleanup_processes import cleanup_processes
 
 
 def create_required_files():  # Create files used by isobox like config files if they dont exist
@@ -191,13 +192,11 @@ def main(args):
         mount_filesystems(currentbox["mountpoint"])
         chroot(currentbox["mountpoint"], args.user)
 
-        umount_filesystems(currentbox["mountpoint"])
     elif args.command == "gui":
         currentbox = getboxbyname(args.name)
 
         mount_filesystems(currentbox["mountpoint"])
         chroot_gui(currentbox["mountpoint"], args.tty, args.display, args.user)
-        umount_filesystems(currentbox["mountpoint"])
     elif args.command in ("ls", "list"):
         boxeslist = None
         with open("/var/lib/isobox/isoboxes.json", "r+") as f:
@@ -254,8 +253,6 @@ def main(args):
         mount_filesystems(currentbox["mountpoint"])
         chroot_run(currentbox["mountpoint"], args.user, args.program)
 
-        umount_filesystems(currentbox["mountpoint"])
-
 
 if __name__ == "__main__":
     args = parse_args()
@@ -268,15 +265,15 @@ if __name__ == "__main__":
 
     currentmountpoint = None
     # Set the currentmountpoint here so we can unmount mounted filesystems  here if something goes south
-    if args.command in ("shell", "gui") and getboxbyname(args.name):
+    if args.command in ("shell", "gui", "run") and getboxbyname(args.name):
         currentmountpoint = getboxbyname(args.name)["mountpoint"]
 
     try:
         main(args)
     except Exception as e:
         print(traceback.format_exc())
-        if args.command in ("shell", "gui"):
+
+    finally:
+        if currentmountpoint:
             umount_filesystems(currentmountpoint)
-    except KeyboardInterrupt:
-        if args.command in ("shell", "gui"):
-            umount_filesystems(currentmountpoint)
+            cleanup_processes(currentmountpoint)
