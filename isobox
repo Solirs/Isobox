@@ -265,7 +265,7 @@ if __name__ == "__main__":
 
     currentmountpoint = None
     # Set the currentmountpoint here so we can unmount mounted filesystems  here if something goes south
-    if args.command in ("shell", "gui") and getboxbyname(args.name):
+    if args.command in ("shell", "gui", "run") and getboxbyname(args.name):
         currentmountpoint = getboxbyname(args.name)["mountpoint"]
 
     try:
