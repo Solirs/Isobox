@@ -1,6 +1,6 @@
 
 
-if command -v "pipewire" &> /dev/null && command -v "pipewire-pulse" &> /dev/null
+if command -v "pipewire" > /dev/null && command -v "pipewire-pulse" > /dev/null
 then
     #XDG Runtime dir has to be set for this to work
     unset XDG_RUNTIME_DIR
@@ -8,7 +8,7 @@ then
     pipewire &
     pipewire-pulse &
     dbus-launch wireplumber &
-elif command -v "pulseaudio" &> /dev/null
+elif command -v "pulseaudio" > /dev/null
 then
     pulseaudio &
 fi
