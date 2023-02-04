@@ -14,7 +14,7 @@ def cleanup_processes(mountpoint):
         try:
             cwd = "/proc/" + pid + "/cwd/"
             procpwd = os.path.realpath(cwd)
-            if mountpoint in procpwd:
+            if procpwd.startswith(mountpoint):
                 os.kill(int(pid), signal.SIGTERM)
                 print("Killed " + pid)
 
