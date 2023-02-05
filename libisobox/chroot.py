@@ -18,6 +18,7 @@ def chroot(directory, user):
 
 def chroot_run(directory, user, program):
     home = "/home/" + user if user != "root" else "/root"
+    program = '"' + program + '"'
     subprocess.run(
         [
             "/bin/sh",

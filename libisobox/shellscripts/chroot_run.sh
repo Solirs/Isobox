@@ -1,1 +1,1 @@
-chroot $1 /bin/sh -c 'cd '"$3"' && su -c '"$4"' '"$2"'' 
+chroot $1 /bin/sh -c "cd $3 && su -c $4 $2"
