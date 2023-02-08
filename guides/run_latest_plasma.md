@@ -1,6 +1,7 @@
 ## Run the latest KDE plasma with X11 on an isoboxed distro  
 Here is a quick guide to run the latest KDE plasma desktop inside an isobox.  
-For this example we will use the arch linux distribution and assume KDE plasma is installed on your system.  
+For this example we will use the arch linux distribution as our guest and assume KDE plasma is installed on your system.  
+This guide will pretty much work on every distro if the requirements are needed though.  
 
 Before all pick a tty that's currently unused as well as a Xorg display that's also unused.  
 Then run the following: 
