@@ -1,8 +1,3 @@
-
-umount -f -l $1/proc
-umount -f -l $1/dev
-umount -f -l $1/run
-umount -f -l $1/tmp
-umount -f -l $1/sys
+umount `grep $1 /proc/mounts | cut -f2 -d" " | sort -r`
 
 rm "$1/usr/local/bin/isobox_desktop_init.sh" 
