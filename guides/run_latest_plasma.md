@@ -4,6 +4,10 @@ For this example we will use the arch linux distribution as our guest and assume
 This guide will pretty much work on every distro if the requirements are needed though.  
 
 Before all pick a tty that's currently unused as well as a Xorg display that's also unused.  
+You may also want to run  
+`source /usr/local/bin/isobox_desktop_init.sh`  
+To start stuff that you may want to have on a desktop like a sound server.
+
 Then run the following: 
 
 `startx /usr/bin/dbus-run-session startplasma-x11 -- :2 vt3`  
