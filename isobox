@@ -15,6 +15,8 @@ from libisobox.isoboxmanagement import getboxbyname
 from libisobox.checkdependencies import checkdependencies
 from libisobox.purge import purge
 from libisobox.cleanup_processes import cleanup_processes
+from libisobox.signalhandler import Signalhandler
+import signal
 
 
 def create_required_files():  # Create files used by isobox like config files if they dont exist
@@ -280,9 +282,11 @@ if __name__ == "__main__":
     checkdependencies()  # Check if unsquashfs is installed basically
 
     currentmountpoint = None
+    signalhandler = None
     # Set the currentmountpoint here so we can unmount mounted filesystems  here if something goes south
     if args.command in ("shell", "gui", "run") and getboxbyname(args.name):
         currentmountpoint = getboxbyname(args.name)["mountpoint"]
+        signalhandler = Signalhandler(currentmountpoint)
 
     try:
         main(args)
@@ -291,5 +295,8 @@ if __name__ == "__main__":
 
     finally:
         if currentmountpoint:
-            umount_filesystems(currentmountpoint)
-            cleanup_processes(currentmountpoint)
+            if signalhandler.dead:
+                sys.exit(0)
+            else:
+                umount_filesystems(currentmountpoint)
+                cleanup_processes(currentmountpoint)
