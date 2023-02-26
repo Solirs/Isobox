@@ -16,7 +16,6 @@ from libisobox.checkdependencies import checkdependencies
 from libisobox.purge import purge
 from libisobox.cleanup_processes import cleanup_processes
 from libisobox.signalhandler import Signalhandler
-import signal
 
 
 def create_required_files():  # Create files used by isobox like config files if they dont exist
