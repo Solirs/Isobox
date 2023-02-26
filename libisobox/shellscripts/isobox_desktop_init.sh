@@ -10,6 +10,6 @@ then
     dbus-launch wireplumber &
 elif command -v "pulseaudio" > /dev/null
 then
-    pulseaudio &
+    dbus-launch pulseaudio &
 fi
 
