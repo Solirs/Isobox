@@ -1,12 +1,12 @@
 ## Setup a Debian packaging environment and build a Debian package inside an isoboxed Debian install.
 
-Before all you will need a fully functionning Debian isobox.  
 For the example i use the debian-live-11.6.0-amd64-standard.iso iso file that can  
 be found in your favourite Debian mirro under debian-cd/11.6.0-live/amd64/iso-hybrid/.  
 We will be using Debian 11 bullseye in this guide.  
 A hashtag before a command means it must run as root.  
 A dollar sign means it mustt run as a regular user. 
 
+Before all you will need a fully functionning Debian isobox.  
 You can then create it by running something like:  
 `# isobox create debian path_to_debian_iso`  
 And chroot inside it with:  
