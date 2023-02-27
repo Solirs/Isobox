@@ -51,8 +51,8 @@ You can now start building the package and grab a coffee.
 (Remove the -us and -uc flags to enable GPG signing.)
 
 Once your package is done building cd into the ~/ksh directory once again.  
-You should find two new deb packages. ksh-dgbsym*.deb and ksh_*.deb.  
-Simply install the ksh_*.deb one:  
+You should find two new deb packages. ksh-dgbsym*.deb and ksh_\*.deb.  
+Simply install the ksh_\*.deb one:  
 `# dpkg -i ksh_*.deb`  
 And run `ksh` to check if everything went right
 
