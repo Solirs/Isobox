@@ -28,6 +28,7 @@ To delete all isobox related data.
   - To test out distros without booting them
   - To be able to do dangerous or distro specific stuff in a semi-isolated environment.
   - Because having a second separate ready to use environment is always good for activities needing a lot of programs like pentesting
+  - Generally to more easily make use of heavily specialized distros.  
   - For fun and practice
 
 ### Requirements:
