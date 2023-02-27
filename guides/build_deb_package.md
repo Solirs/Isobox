@@ -59,4 +59,8 @@ And run `ksh` to check if everything went right
 Congratulations you have built a Debian package with the help of Isobox.  
 
 
-![](https://i.imgur.com/xaNRXNJ.png)
+![](https://i.imgur.com/xaNRXNJ.png)  
+
+
+Special thanks to this document which was useful in the making of this guide:  
+https://www.debian.org/doc/manuals/packaging-tutorial/packaging-tutorial.en.pdf     

@@ -40,6 +40,7 @@ To delete all isobox related data.
 Here are some guides about cool stuff you can do with isobox!:  
 [Run a kali linux pentesting env with a desktop environment in an isobox](https://github.com/Solirs/Isobox/blob/main/guides/isoboxed_pentesting_env.md)  
 [Run the latest kde plasma in an isobox](https://github.com/Solirs/Isobox/blob/main/guides/run_latest_plasma.md)  
+[Setup a Debian packaging environment and build a package](https://github.com/Solirs/Isobox/blob/main/guides/build_deb_package.md)  
   
 
 ![Screenshot](https://i.imgur.com/rX7YgGI.png)
