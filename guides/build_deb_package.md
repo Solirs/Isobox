@@ -18,7 +18,7 @@ For this example we will rebuild the `ksh` package.
 First of all install the `build-essential` and `devscripts` packages.  
 `# apt install build-essential`  
 `# apt install devscripts`  
-(If you get an error about the statoverride file, delete /var/lib/dpkg/statoverride and run `dpkg --configure -a`)  
+(If you get an error about the statoverride file, delete /var/lib/dpkg/statoverride and run `# dpkg --configure -a`)  
 
 Then add the deb-src stuff into /etc/apt/sources.list.  
 In this iso you can do that by uncommenting the line `deb-src http://deb.debian.org/debian/ bullseye main` in  /etc/apt/sources.list and running `# apt update`.  
